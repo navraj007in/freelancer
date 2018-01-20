@@ -7648,6 +7648,8 @@
     <Content Include="Views\Shared\Admin.cshtml" />
     <Content Include="Views\Accounts\Index.cshtml" />
     <Content Include="Views\Accounts\Login.cshtml" />
+    <Content Include="Views\Shared\Template.cshtml" />
+    <Content Include="Views\Shared\ClientAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
