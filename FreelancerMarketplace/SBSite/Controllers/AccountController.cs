@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SBSite.Models;
+using System.Diagnostics;
+using System.Data.Entity.Validation;
 
 namespace SBSite.Controllers
 {
@@ -17,6 +19,7 @@ namespace SBSite.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        Entities dbContext = new Entities();
 
         public AccountController()
         {
@@ -147,15 +150,64 @@ namespace SBSite.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model,FormCollection collection)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+
+                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action(
+                       "ConfirmEmail", "Account",
+                       new { userId = user.Id, code = code },
+                       protocol: Request.Url.Scheme);
+
+                    await UserManager.SendEmailAsync(user.Id,
+                       "Confirm your account",
+                       "Please confirm your account by clicking this link: <a href=\""
+                                                       + callbackUrl + "\">link</a>");
+                    // ViewBag.Link = callbackUrl;   // Used only for initial demo.
+
+                    //Utils.SendWelcomeEmail(user.UserName,model.Password,user.Email);
+                    Profile userProfile = new Profile();
+                   // userProfile.Id = (from x in dbContext.Profiles
+                            //          select x.Id).Max() + 1;
+
+                    userProfile.Alias = model.UserName;
+                    userProfile.Country = "";
+                    userProfile.userId = user.Id;
+                    userProfile.IsEnabled = 0;
+                    userProfile.ProfileImage = "profileimg.png";
+                    
+                    userProfile.ACType = collection["Gender"];
+                    userProfile.BitcoinWallet = "";
+                    userProfile.EtherWallet = "";
+                    userProfile.LiteCoinWallet = "";
+                    userProfile.IsTrusted = 0;
+                    userProfile.DateCreated = DateTime.UtcNow;
+                    userProfile.Gender = collection["Gender"].Substring(0, 1);
+                    userProfile.Seeking = collection["IntIn"];
+                    userProfile.ACType = collection["Type"];
+                    try
+                    {
+                        dbContext.Profiles.Add(userProfile);
+
+                        dbContext.SaveChanges();
+                    }
+                    catch (DbEntityValidationException ex)
+                    {
+                        foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                        {
+                            foreach (var validationError in entityValidationErrors.ValidationErrors)
+                            {
+                                Response.Write("Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage);
+                            }
+                        }
+                    }
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
