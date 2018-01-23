@@ -79,6 +79,12 @@ namespace SBSite.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
+        public string Gender { get; set; }
+
+        public string ACType { get; set; }
+
+        public string Seeking { get; set; }
+
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]

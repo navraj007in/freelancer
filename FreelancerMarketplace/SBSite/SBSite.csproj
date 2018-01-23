@@ -218,6 +218,8 @@
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SugarBabyController.cs" />
+    <Compile Include="Controllers\SugarDaddyController.cs" />
     <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -7603,6 +7605,11 @@
     <Content Include="Views\Accounts\Login.cshtml" />
     <Content Include="Views\Accounts\Register.cshtml" />
     <Content Include="Views\Shared\Admin.cshtml" />
+    <Content Include="Views\Home\Welcome.cshtml" />
+    <Content Include="Views\SugarDaddy\Index.cshtml" />
+    <Content Include="Views\Shared\SDView.cshtml" />
+    <Content Include="Views\Shared\SBView.cshtml" />
+    <Content Include="Views\SugarBaby\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

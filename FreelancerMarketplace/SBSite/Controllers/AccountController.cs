@@ -142,7 +142,11 @@ namespace SBSite.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            RegisterViewModel model = new RegisterViewModel();
+            model.Gender = "Male";
+            model.ACType = "SD";
+            model.Seeking = "Female";
+            return View(model);
         }
 
         //
@@ -183,15 +187,15 @@ namespace SBSite.Controllers
                     userProfile.IsEnabled = 0;
                     userProfile.ProfileImage = "profileimg.png";
                     
-                    userProfile.ACType = collection["Gender"];
+                    userProfile.ACType = model.ACType;
                     userProfile.BitcoinWallet = "";
                     userProfile.EtherWallet = "";
                     userProfile.LiteCoinWallet = "";
                     userProfile.IsTrusted = 0;
                     userProfile.DateCreated = DateTime.UtcNow;
-                    userProfile.Gender = collection["Gender"].Substring(0, 1);
-                    userProfile.Seeking = collection["IntIn"];
-                    userProfile.ACType = collection["Type"];
+                    userProfile.Gender = model.Gender.Substring(0, 1);
+                    userProfile.Seeking = model.Seeking;
+//                    userProfile.ACType = collection["Type"];
                     try
                     {
                         dbContext.Profiles.Add(userProfile);

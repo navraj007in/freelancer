@@ -86,6 +86,27 @@
           <Property Name="EtherWallet" Type="nvarchar(max)" />
           <Property Name="LiteCoinWallet" Type="nvarchar(max)" />
           <Property Name="DateCreated" Type="datetime" />
+          <Property Name="AboutMe" Type="text" />
+          <Property Name="IAmSeeking" Type="text" />
+          <Property Name="LookingFor" Type="text" />
+          <Property Name="Height" Type="nvarchar" MaxLength="50" />
+          <Property Name="BodyType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ethnicity" Type="nvarchar" MaxLength="50" />
+          <Property Name="HairColor" Type="nvarchar" MaxLength="50" />
+          <Property Name="Occupation" Type="nvarchar" MaxLength="50" />
+          <Property Name="Education" Type="nvarchar" MaxLength="50" />
+          <Property Name="RelationShip" Type="nvarchar" MaxLength="50" />
+          <Property Name="Children" Type="nvarchar" MaxLength="50" />
+          <Property Name="Smoking" Type="nvarchar" MaxLength="50" />
+          <Property Name="Drinking" Type="nvarchar" MaxLength="50" />
+          <Property Name="Language" Type="nvarchar" MaxLength="50" />
+          <Property Name="Heading" Type="nvarchar" MaxLength="250" />
+          <Property Name="LifeStyle" Type="nvarchar" MaxLength="50" />
+          <Property Name="NetWorth" Type="nvarchar" MaxLength="50" />
+          <Property Name="AnnualIncome" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsFilled" Type="int" />
+          <Property Name="Place" Type="geography" />
+          <Property Name="PlaceName" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -251,6 +272,27 @@
           <Property Name="ACType" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
           <Property Name="Gender" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
           <Property Name="Seeking" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="AboutMe" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IAmSeeking" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LookingFor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Height" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BodyType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ethnicity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HairColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Occupation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Education" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RelationShip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Children" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Smoking" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Drinking" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Language" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Heading" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LifeStyle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NetWorth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AnnualIncome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsFilled" Type="Int32" />
+          <Property Name="Place" Type="Geography" />
+          <Property Name="PlaceName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
@@ -368,6 +410,27 @@
           <EntitySetMapping Name="Profiles">
             <EntityTypeMapping TypeName="Model.Profile">
               <MappingFragment StoreEntitySet="Profile">
+                <ScalarProperty Name="PlaceName" ColumnName="PlaceName" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="IsFilled" ColumnName="IsFilled" />
+                <ScalarProperty Name="AnnualIncome" ColumnName="AnnualIncome" />
+                <ScalarProperty Name="NetWorth" ColumnName="NetWorth" />
+                <ScalarProperty Name="LifeStyle" ColumnName="LifeStyle" />
+                <ScalarProperty Name="Heading" ColumnName="Heading" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="Drinking" ColumnName="Drinking" />
+                <ScalarProperty Name="Smoking" ColumnName="Smoking" />
+                <ScalarProperty Name="Children" ColumnName="Children" />
+                <ScalarProperty Name="RelationShip" ColumnName="RelationShip" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+                <ScalarProperty Name="Occupation" ColumnName="Occupation" />
+                <ScalarProperty Name="HairColor" ColumnName="HairColor" />
+                <ScalarProperty Name="Ethnicity" ColumnName="Ethnicity" />
+                <ScalarProperty Name="BodyType" ColumnName="BodyType" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="LookingFor" ColumnName="LookingFor" />
+                <ScalarProperty Name="IAmSeeking" ColumnName="IAmSeeking" />
+                <ScalarProperty Name="AboutMe" ColumnName="AboutMe" />
                 <ScalarProperty Name="Seeking" ColumnName="Seeking" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="ACType" ColumnName="ACType" />

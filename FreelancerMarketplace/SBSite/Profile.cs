@@ -30,5 +30,26 @@ namespace SBSite
         public string ACType { get; set; }
         public string Gender { get; set; }
         public string Seeking { get; set; }
+        public string AboutMe { get; set; }
+        public string IAmSeeking { get; set; }
+        public string LookingFor { get; set; }
+        public string Height { get; set; }
+        public string BodyType { get; set; }
+        public string Ethnicity { get; set; }
+        public string HairColor { get; set; }
+        public string Occupation { get; set; }
+        public string Education { get; set; }
+        public string RelationShip { get; set; }
+        public string Children { get; set; }
+        public string Smoking { get; set; }
+        public string Drinking { get; set; }
+        public string Language { get; set; }
+        public string Heading { get; set; }
+        public string LifeStyle { get; set; }
+        public string NetWorth { get; set; }
+        public string AnnualIncome { get; set; }
+        public Nullable<int> IsFilled { get; set; }
+        public System.Data.Entity.Spatial.DbGeography Place { get; set; }
+        public string PlaceName { get; set; }
     }
 }
