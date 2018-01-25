@@ -47,10 +47,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -128,12 +138,6 @@
     <Reference Include="System.Web.Http.WebHost">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -203,16 +207,16 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="AspNetRole.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelNew.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetUser.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelNew.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetUserClaim.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelNew.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetUserLogin.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelNew.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
@@ -221,7 +225,10 @@
     <Compile Include="Controllers\SugarBabyController.cs" />
     <Compile Include="Controllers\SugarDaddyController.cs" />
     <Compile Include="C__MigrationHistory.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelNew.tt</DependentUpon>
+    </Compile>
+    <Compile Include="C__MigrationHistory1.cs">
+      <DependentUpon>ModelNew.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -241,13 +248,29 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ModelNew.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelNew.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelNew.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelNew.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelNew.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelNew.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Profile.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>ModelNew.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -6740,10 +6763,22 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Model.edmx.sql" />
     <Content Include="Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
+    </Content>
+    <Content Include="ModelNew.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelNew.edmx</DependentUpon>
+      <LastGenOutput>ModelNew.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ModelNew.edmx.sql" />
+    <Content Include="ModelNew.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelNew.edmx</DependentUpon>
+      <LastGenOutput>ModelNew.cs</LastGenOutput>
     </Content>
     <Content Include="pages\calendar.html" />
     <Content Include="pages\charts\chartjs.html" />
@@ -7556,6 +7591,13 @@
     <Content Include="Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <EntityDeploy Include="ModelNew.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelNew.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="ModelNew.edmx.diagram">
+      <DependentUpon>ModelNew.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -7567,6 +7609,19 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
