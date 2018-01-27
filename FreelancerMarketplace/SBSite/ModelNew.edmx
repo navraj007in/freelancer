@@ -66,11 +66,14 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'aspnet-SBSite-20180120115016.dbo.Profiles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Profiles">
           <Key>
             <PropertyRef Name="Id" />
+            <PropertyRef Name="userId" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="userId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Alias" Type="nvarchar" MaxLength="255" />
           <Property Name="Country" Type="nvarchar" MaxLength="255" />
@@ -99,6 +102,55 @@
           <Property Name="Children" Type="nvarchar" MaxLength="50" />
           <Property Name="Smoking" Type="nvarchar" MaxLength="50" />
           <Property Name="Drinking" Type="nvarchar" MaxLength="50" />
+          <Property Name="Language" Type="nvarchar" MaxLength="50" />
+          <Property Name="Heading" Type="nvarchar" MaxLength="250" />
+          <Property Name="LifeStyle" Type="nvarchar" MaxLength="50" />
+          <Property Name="NetWorth" Type="nvarchar" MaxLength="50" />
+          <Property Name="AnnualIncome" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsFilled" Type="int" />
+          <Property Name="Place" Type="geography" />
+          <Property Name="PlaceName" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'aspnet-SBSite-20180120115016.dbo.UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UserView">
+          <Key>
+            <PropertyRef Name="EmailConfirmed" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="Expr1" />
+          </Key>
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Expr1" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Expr2" Type="nvarchar" MaxLength="255" />
+          <Property Name="Expr3" Type="nvarchar" MaxLength="255" />
+          <Property Name="Rating" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ProfileImage" Type="nvarchar(max)" />
+          <Property Name="IsEnabled" Type="int" />
+          <Property Name="IsTrusted" Type="int" />
+          <Property Name="BitcoinWallet" Type="nvarchar(max)" />
+          <Property Name="EtherWallet" Type="nvarchar(max)" />
+          <Property Name="LiteCoinWallet" Type="nvarchar(max)" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="ACType" Type="nvarchar" MaxLength="2" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="8" />
+          <Property Name="AboutMe" Type="varchar(max)" />
+          <Property Name="Seeking" Type="nvarchar" MaxLength="8" />
+          <Property Name="IAmSeeking" Type="varchar(max)" />
+          <Property Name="LookingFor" Type="varchar(max)" />
+          <Property Name="Height" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ethnicity" Type="nvarchar" MaxLength="50" />
+          <Property Name="BodyType" Type="nvarchar" MaxLength="50" />
+          <Property Name="HairColor" Type="nvarchar" MaxLength="50" />
+          <Property Name="Occupation" Type="nvarchar" MaxLength="50" />
+          <Property Name="Education" Type="nvarchar" MaxLength="50" />
+          <Property Name="RelationShip" Type="nvarchar" MaxLength="50" />
+          <Property Name="Children" Type="nvarchar" MaxLength="50" />
+          <Property Name="Drinking" Type="nvarchar" MaxLength="50" />
+          <Property Name="Smoking" Type="nvarchar" MaxLength="50" />
           <Property Name="Language" Type="nvarchar" MaxLength="50" />
           <Property Name="Heading" Type="nvarchar" MaxLength="250" />
           <Property Name="LifeStyle" Type="nvarchar" MaxLength="50" />
@@ -171,7 +223,91 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Profiles" EntityType="Self.Profiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profiles" EntityType="Self.Profiles" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Profiles].[Id] AS [Id], 
+    [Profiles].[userId] AS [userId], 
+    [Profiles].[Alias] AS [Alias], 
+    [Profiles].[Country] AS [Country], 
+    [Profiles].[Rating] AS [Rating], 
+    [Profiles].[ProfileImage] AS [ProfileImage], 
+    [Profiles].[IsEnabled] AS [IsEnabled], 
+    [Profiles].[IsTrusted] AS [IsTrusted], 
+    [Profiles].[BitcoinWallet] AS [BitcoinWallet], 
+    [Profiles].[EtherWallet] AS [EtherWallet], 
+    [Profiles].[LiteCoinWallet] AS [LiteCoinWallet], 
+    [Profiles].[DateCreated] AS [DateCreated], 
+    [Profiles].[DOB] AS [DOB], 
+    [Profiles].[ACType] AS [ACType], 
+    [Profiles].[Gender] AS [Gender], 
+    [Profiles].[Seeking] AS [Seeking], 
+    [Profiles].[AboutMe] AS [AboutMe], 
+    [Profiles].[IAmSeeking] AS [IAmSeeking], 
+    [Profiles].[LookingFor] AS [LookingFor], 
+    [Profiles].[Height] AS [Height], 
+    [Profiles].[BodyType] AS [BodyType], 
+    [Profiles].[Ethnicity] AS [Ethnicity], 
+    [Profiles].[HairColor] AS [HairColor], 
+    [Profiles].[Occupation] AS [Occupation], 
+    [Profiles].[Education] AS [Education], 
+    [Profiles].[RelationShip] AS [RelationShip], 
+    [Profiles].[Children] AS [Children], 
+    [Profiles].[Smoking] AS [Smoking], 
+    [Profiles].[Drinking] AS [Drinking], 
+    [Profiles].[Language] AS [Language], 
+    [Profiles].[Heading] AS [Heading], 
+    [Profiles].[LifeStyle] AS [LifeStyle], 
+    [Profiles].[NetWorth] AS [NetWorth], 
+    [Profiles].[AnnualIncome] AS [AnnualIncome], 
+    [Profiles].[IsFilled] AS [IsFilled], 
+    [Profiles].[Place] AS [Place], 
+    [Profiles].[PlaceName] AS [PlaceName]
+    FROM [dbo].[Profiles] AS [Profiles]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="UserView" EntityType="Self.UserView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UserView].[Email] AS [Email], 
+    [UserView].[EmailConfirmed] AS [EmailConfirmed], 
+    [UserView].[PhoneNumber] AS [PhoneNumber], 
+    [UserView].[UserName] AS [UserName], 
+    [UserView].[Expr1] AS [Expr1], 
+    [UserView].[Expr2] AS [Expr2], 
+    [UserView].[Expr3] AS [Expr3], 
+    [UserView].[Rating] AS [Rating], 
+    [UserView].[ProfileImage] AS [ProfileImage], 
+    [UserView].[IsEnabled] AS [IsEnabled], 
+    [UserView].[IsTrusted] AS [IsTrusted], 
+    [UserView].[BitcoinWallet] AS [BitcoinWallet], 
+    [UserView].[EtherWallet] AS [EtherWallet], 
+    [UserView].[LiteCoinWallet] AS [LiteCoinWallet], 
+    [UserView].[DateCreated] AS [DateCreated], 
+    [UserView].[DOB] AS [DOB], 
+    [UserView].[ACType] AS [ACType], 
+    [UserView].[Gender] AS [Gender], 
+    [UserView].[AboutMe] AS [AboutMe], 
+    [UserView].[Seeking] AS [Seeking], 
+    [UserView].[IAmSeeking] AS [IAmSeeking], 
+    [UserView].[LookingFor] AS [LookingFor], 
+    [UserView].[Height] AS [Height], 
+    [UserView].[Ethnicity] AS [Ethnicity], 
+    [UserView].[BodyType] AS [BodyType], 
+    [UserView].[HairColor] AS [HairColor], 
+    [UserView].[Occupation] AS [Occupation], 
+    [UserView].[Education] AS [Education], 
+    [UserView].[RelationShip] AS [RelationShip], 
+    [UserView].[Children] AS [Children], 
+    [UserView].[Drinking] AS [Drinking], 
+    [UserView].[Smoking] AS [Smoking], 
+    [UserView].[Language] AS [Language], 
+    [UserView].[Heading] AS [Heading], 
+    [UserView].[LifeStyle] AS [LifeStyle], 
+    [UserView].[NetWorth] AS [NetWorth], 
+    [UserView].[AnnualIncome] AS [AnnualIncome], 
+    [UserView].[IsFilled] AS [IsFilled], 
+    [UserView].[Place] AS [Place], 
+    [UserView].[PlaceName] AS [PlaceName]
+    FROM [dbo].[UserView] AS [UserView]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -199,6 +335,8 @@
           <EntitySet Name="AspNetUserClaims" EntityType="SBDBModel.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="SBDBModel.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="SBDBModel.AspNetUser" />
+          <EntitySet Name="Profiles" EntityType="SBDBModel.Profile" />
+          <EntitySet Name="UserViews" EntityType="SBDBModel.UserView" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="SBDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
@@ -208,12 +346,6 @@
             <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
           </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="SBDBModel.AspNetUserRoles">
-            <End Role="AspNetRole" EntitySet="AspNetRoles" />
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-          </AssociationSet>
-          <EntitySet Name="C__MigrationHistory1" EntityType="SBDBModel.C__MigrationHistory1" />
-          <EntitySet Name="Profiles" EntityType="SBDBModel.Profile" />
-          <AssociationSet Name="AspNetUserRoles1" Association="SBDBModel.AspNetUserRoles1">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
@@ -235,7 +367,6 @@
           <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="SBDBModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
-          <NavigationProperty Name="AspNetUsers1" Relationship="SBDBModel.AspNetUserRoles1" FromRole="AspNetRole" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="AspNetUserClaim">
           <Key>
@@ -277,55 +408,13 @@
           <NavigationProperty Name="AspNetUserClaims" Relationship="SBDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="SBDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
           <NavigationProperty Name="AspNetRoles" Relationship="SBDBModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
-          <NavigationProperty Name="AspNetRoles1" Relationship="SBDBModel.AspNetUserRoles1" FromRole="AspNetUser" ToRole="AspNetRole" />
-        </EntityType>
-        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-          <End Type="SBDBModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="SBDBModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserClaim">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Type="SBDBModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="SBDBModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserLogin">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="AspNetUserRoles">
-          <End Type="SBDBModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
-          <End Type="SBDBModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
-        </Association>
-        <EntityType Name="C__MigrationHistory1">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Profile">
           <Key>
             <PropertyRef Name="Id" />
+            <PropertyRef Name="userId" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="userId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Alias" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Country" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -363,70 +452,143 @@
           <Property Name="Place" Type="Geography" />
           <Property Name="PlaceName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="AspNetUserRoles1">
+        <EntityType Name="UserView">
+          <Key>
+            <PropertyRef Name="EmailConfirmed" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="Expr1" />
+          </Key>
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Expr1" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Expr2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Expr3" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Rating" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ProfileImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsEnabled" Type="Int32" />
+          <Property Name="IsTrusted" Type="Int32" />
+          <Property Name="BitcoinWallet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EtherWallet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LiteCoinWallet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="ACType" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="AboutMe" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Seeking" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="IAmSeeking" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LookingFor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Height" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ethnicity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BodyType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HairColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Occupation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Education" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RelationShip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Children" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Drinking" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Smoking" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Language" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Heading" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LifeStyle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NetWorth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AnnualIncome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsFilled" Type="Int32" />
+          <Property Name="Place" Type="Geography" />
+          <Property Name="PlaceName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="SBDBModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SBDBModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaim">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="SBDBModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SBDBModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
           <End Type="SBDBModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="SBDBModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="SBDBModelStoreContainer" CdmEntityContainer="SBDBEntities">
-    <EntitySetMapping Name="AspNetRoles">
-      <EntityTypeMapping TypeName="IsTypeOf(SBDBModel.AspNetRole)">
-        <MappingFragment StoreEntitySet="AspNetRoles">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="AspNetUserClaims">
-      <EntityTypeMapping TypeName="IsTypeOf(SBDBModel.AspNetUserClaim)">
-        <MappingFragment StoreEntitySet="AspNetUserClaims">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
-          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="AspNetUserLogins">
-      <EntityTypeMapping TypeName="IsTypeOf(SBDBModel.AspNetUserLogin)">
-        <MappingFragment StoreEntitySet="AspNetUserLogins">
-          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
-          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="AspNetUsers">
-      <EntityTypeMapping TypeName="IsTypeOf(SBDBModel.AspNetUser)">
-        <MappingFragment StoreEntitySet="AspNetUsers">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="AspNetUserRoles" TypeName="SBDBModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-      </AssociationSetMapping>
-          <EntitySetMapping Name="C__MigrationHistory1">
-            <EntityTypeMapping TypeName="SBDBModel.C__MigrationHistory1">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="SBDBModel.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
                 <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
                 <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
                 <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="SBDBModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="SBDBModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="SBDBModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="SBDBModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -473,7 +635,53 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles1" TypeName="SBDBModel.AspNetUserRoles1" StoreEntitySet="AspNetUserRoles">
+          <EntitySetMapping Name="UserViews">
+            <EntityTypeMapping TypeName="SBDBModel.UserView">
+              <MappingFragment StoreEntitySet="UserView">
+                <ScalarProperty Name="PlaceName" ColumnName="PlaceName" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="IsFilled" ColumnName="IsFilled" />
+                <ScalarProperty Name="AnnualIncome" ColumnName="AnnualIncome" />
+                <ScalarProperty Name="NetWorth" ColumnName="NetWorth" />
+                <ScalarProperty Name="LifeStyle" ColumnName="LifeStyle" />
+                <ScalarProperty Name="Heading" ColumnName="Heading" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="Smoking" ColumnName="Smoking" />
+                <ScalarProperty Name="Drinking" ColumnName="Drinking" />
+                <ScalarProperty Name="Children" ColumnName="Children" />
+                <ScalarProperty Name="RelationShip" ColumnName="RelationShip" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+                <ScalarProperty Name="Occupation" ColumnName="Occupation" />
+                <ScalarProperty Name="HairColor" ColumnName="HairColor" />
+                <ScalarProperty Name="BodyType" ColumnName="BodyType" />
+                <ScalarProperty Name="Ethnicity" ColumnName="Ethnicity" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="LookingFor" ColumnName="LookingFor" />
+                <ScalarProperty Name="IAmSeeking" ColumnName="IAmSeeking" />
+                <ScalarProperty Name="Seeking" ColumnName="Seeking" />
+                <ScalarProperty Name="AboutMe" ColumnName="AboutMe" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="ACType" ColumnName="ACType" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="LiteCoinWallet" ColumnName="LiteCoinWallet" />
+                <ScalarProperty Name="EtherWallet" ColumnName="EtherWallet" />
+                <ScalarProperty Name="BitcoinWallet" ColumnName="BitcoinWallet" />
+                <ScalarProperty Name="IsTrusted" ColumnName="IsTrusted" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="ProfileImage" ColumnName="ProfileImage" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Expr3" ColumnName="Expr3" />
+                <ScalarProperty Name="Expr2" ColumnName="Expr2" />
+                <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="SBDBModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
             <EndProperty Name="AspNetUser">
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
@@ -481,7 +689,7 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
-  </EntityContainerMapping>
+        </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->

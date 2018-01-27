@@ -31,5 +31,7 @@ namespace SBSite
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Profile> Profiles { get; set; }
+        public virtual DbSet<UserView> UserViews { get; set; }
+        public virtual DbSet<C__MigrationHistory1> C__MigrationHistory1 { get; set; }
     }
 }

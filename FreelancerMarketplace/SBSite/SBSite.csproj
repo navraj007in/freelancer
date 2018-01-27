@@ -207,16 +207,16 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="AspNetRole.cs">
-      <DependentUpon>ModelNew.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetUser.cs">
-      <DependentUpon>ModelNew.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetUserClaim.cs">
-      <DependentUpon>ModelNew.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetUserLogin.cs">
-      <DependentUpon>ModelNew.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
@@ -225,10 +225,10 @@
     <Compile Include="Controllers\SugarBabyController.cs" />
     <Compile Include="Controllers\SugarDaddyController.cs" />
     <Compile Include="C__MigrationHistory.cs">
-      <DependentUpon>ModelNew.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="C__MigrationHistory1.cs">
-      <DependentUpon>ModelNew.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -267,11 +267,14 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Profile.cs">
-      <DependentUpon>ModelNew.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="UserView.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\aspnet-SBSite-20180120115016.mdf" />

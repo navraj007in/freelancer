@@ -14,6 +14,9 @@
         <AssociationConnector Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="Model.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.UserView" Width="1.5" PointX="5.375" PointY="6.75" />
+        <AssociationConnector Association="Model.AspNetUserRoles1" />
+        <EntityTypeShape EntityType="Model.C__MigrationHistory1" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

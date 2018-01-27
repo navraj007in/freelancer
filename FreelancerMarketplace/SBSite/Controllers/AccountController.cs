@@ -19,7 +19,7 @@ namespace SBSite.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        Entities dbContext = new Entities();
+        SBDBEntities dbContext = new SBDBEntities();
 
         public AccountController()
         {
@@ -82,6 +82,15 @@ namespace SBSite.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    dbContext.SaveChanges();
+                    var profile = (from x in dbContext.UserViews
+                                   where x.Email == model.Email
+                                   select x).FirstOrDefault();
+                    if (profile.ACType == "SD")
+                        return View("Index","SugarDadday");
+                    if (profile.ACType == "SB")
+                        return View("Index", "SugarBaby");
+
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

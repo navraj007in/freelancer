@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -33,11 +43,11 @@
         </EntityType>
         <EntityType Name="AspNetUserRoles">
           <Key>
-            <PropertyRef Name="AspNetRoles_Id" />
-            <PropertyRef Name="AspNetUsers_Id" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
           </Key>
-          <Property Name="AspNetRoles_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="AspNetUsers_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
@@ -56,21 +66,14 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
-        <EntityType Name="C__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
-          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
-        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'aspnet-SBSite-20180120115016.dbo.Profiles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Profiles">
           <Key>
             <PropertyRef Name="Id" />
+            
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="userId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Alias" Type="nvarchar" MaxLength="255" />
           <Property Name="Country" Type="nvarchar" MaxLength="255" />
@@ -108,30 +111,55 @@
           <Property Name="Place" Type="geography" />
           <Property Name="PlaceName" Type="nvarchar" MaxLength="250" />
         </EntityType>
-        <Association Name="FK_AspNetUserRoles_AspNetRoles">
-          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
-          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetRoles">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserRoles">
-              <PropertyRef Name="AspNetRoles_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AspNetUserRoles_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserRoles">
-              <PropertyRef Name="AspNetUsers_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'aspnet-SBSite-20180120115016.dbo.UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UserView">
+          <Key>
+            <PropertyRef Name="EmailConfirmed" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="Expr1" />
+          </Key>
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Expr1" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Expr2" Type="nvarchar" MaxLength="255" />
+          <Property Name="Expr3" Type="nvarchar" MaxLength="255" />
+          <Property Name="Rating" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ProfileImage" Type="nvarchar(max)" />
+          <Property Name="IsEnabled" Type="int" />
+          <Property Name="IsTrusted" Type="int" />
+          <Property Name="BitcoinWallet" Type="nvarchar(max)" />
+          <Property Name="EtherWallet" Type="nvarchar(max)" />
+          <Property Name="LiteCoinWallet" Type="nvarchar(max)" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="ACType" Type="nvarchar" MaxLength="2" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="8" />
+          <Property Name="AboutMe" Type="varchar(max)" />
+          <Property Name="Seeking" Type="nvarchar" MaxLength="8" />
+          <Property Name="IAmSeeking" Type="varchar(max)" />
+          <Property Name="LookingFor" Type="varchar(max)" />
+          <Property Name="Height" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ethnicity" Type="nvarchar" MaxLength="50" />
+          <Property Name="BodyType" Type="nvarchar" MaxLength="50" />
+          <Property Name="HairColor" Type="nvarchar" MaxLength="50" />
+          <Property Name="Occupation" Type="nvarchar" MaxLength="50" />
+          <Property Name="Education" Type="nvarchar" MaxLength="50" />
+          <Property Name="RelationShip" Type="nvarchar" MaxLength="50" />
+          <Property Name="Children" Type="nvarchar" MaxLength="50" />
+          <Property Name="Drinking" Type="nvarchar" MaxLength="50" />
+          <Property Name="Smoking" Type="nvarchar" MaxLength="50" />
+          <Property Name="Language" Type="nvarchar" MaxLength="50" />
+          <Property Name="Heading" Type="nvarchar" MaxLength="250" />
+          <Property Name="LifeStyle" Type="nvarchar" MaxLength="50" />
+          <Property Name="NetWorth" Type="nvarchar" MaxLength="50" />
+          <Property Name="AnnualIncome" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsFilled" Type="int" />
+          <Property Name="Place" Type="geography" />
+          <Property Name="PlaceName" Type="nvarchar" MaxLength="250" />
+        </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -160,22 +188,126 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Profiles" EntityType="Self.Profiles" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_AspNetUserRoles_AspNetRoles" Association="Self.FK_AspNetUserRoles_AspNetRoles">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AspNetUserRoles_AspNetUsers" Association="Self.FK_AspNetUserRoles_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
-          </AssociationSet>
+          <EntitySet Name="Profiles" EntityType="Self.Profiles" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Profiles].[Id] AS [Id], 
+    [Profiles].[userId] AS [userId], 
+    [Profiles].[Alias] AS [Alias], 
+    [Profiles].[Country] AS [Country], 
+    [Profiles].[Rating] AS [Rating], 
+    [Profiles].[ProfileImage] AS [ProfileImage], 
+    [Profiles].[IsEnabled] AS [IsEnabled], 
+    [Profiles].[IsTrusted] AS [IsTrusted], 
+    [Profiles].[BitcoinWallet] AS [BitcoinWallet], 
+    [Profiles].[EtherWallet] AS [EtherWallet], 
+    [Profiles].[LiteCoinWallet] AS [LiteCoinWallet], 
+    [Profiles].[DateCreated] AS [DateCreated], 
+    [Profiles].[DOB] AS [DOB], 
+    [Profiles].[ACType] AS [ACType], 
+    [Profiles].[Gender] AS [Gender], 
+    [Profiles].[Seeking] AS [Seeking], 
+    [Profiles].[AboutMe] AS [AboutMe], 
+    [Profiles].[IAmSeeking] AS [IAmSeeking], 
+    [Profiles].[LookingFor] AS [LookingFor], 
+    [Profiles].[Height] AS [Height], 
+    [Profiles].[BodyType] AS [BodyType], 
+    [Profiles].[Ethnicity] AS [Ethnicity], 
+    [Profiles].[HairColor] AS [HairColor], 
+    [Profiles].[Occupation] AS [Occupation], 
+    [Profiles].[Education] AS [Education], 
+    [Profiles].[RelationShip] AS [RelationShip], 
+    [Profiles].[Children] AS [Children], 
+    [Profiles].[Smoking] AS [Smoking], 
+    [Profiles].[Drinking] AS [Drinking], 
+    [Profiles].[Language] AS [Language], 
+    [Profiles].[Heading] AS [Heading], 
+    [Profiles].[LifeStyle] AS [LifeStyle], 
+    [Profiles].[NetWorth] AS [NetWorth], 
+    [Profiles].[AnnualIncome] AS [AnnualIncome], 
+    [Profiles].[IsFilled] AS [IsFilled], 
+    [Profiles].[Place] AS [Place], 
+    [Profiles].[PlaceName] AS [PlaceName]
+    FROM [dbo].[Profiles] AS [Profiles]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="UserView" EntityType="Self.UserView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UserView].[Email] AS [Email], 
+    [UserView].[EmailConfirmed] AS [EmailConfirmed], 
+    [UserView].[PhoneNumber] AS [PhoneNumber], 
+    [UserView].[UserName] AS [UserName], 
+    [UserView].[Expr1] AS [Expr1], 
+    [UserView].[Expr2] AS [Expr2], 
+    [UserView].[Expr3] AS [Expr3], 
+    [UserView].[Rating] AS [Rating], 
+    [UserView].[ProfileImage] AS [ProfileImage], 
+    [UserView].[IsEnabled] AS [IsEnabled], 
+    [UserView].[IsTrusted] AS [IsTrusted], 
+    [UserView].[BitcoinWallet] AS [BitcoinWallet], 
+    [UserView].[EtherWallet] AS [EtherWallet], 
+    [UserView].[LiteCoinWallet] AS [LiteCoinWallet], 
+    [UserView].[DateCreated] AS [DateCreated], 
+    [UserView].[DOB] AS [DOB], 
+    [UserView].[ACType] AS [ACType], 
+    [UserView].[Gender] AS [Gender], 
+    [UserView].[AboutMe] AS [AboutMe], 
+    [UserView].[Seeking] AS [Seeking], 
+    [UserView].[IAmSeeking] AS [IAmSeeking], 
+    [UserView].[LookingFor] AS [LookingFor], 
+    [UserView].[Height] AS [Height], 
+    [UserView].[Ethnicity] AS [Ethnicity], 
+    [UserView].[BodyType] AS [BodyType], 
+    [UserView].[HairColor] AS [HairColor], 
+    [UserView].[Occupation] AS [Occupation], 
+    [UserView].[Education] AS [Education], 
+    [UserView].[RelationShip] AS [RelationShip], 
+    [UserView].[Children] AS [Children], 
+    [UserView].[Drinking] AS [Drinking], 
+    [UserView].[Smoking] AS [Smoking], 
+    [UserView].[Language] AS [Language], 
+    [UserView].[Heading] AS [Heading], 
+    [UserView].[LifeStyle] AS [LifeStyle], 
+    [UserView].[NetWorth] AS [NetWorth], 
+    [UserView].[AnnualIncome] AS [AnnualIncome], 
+    [UserView].[IsFilled] AS [IsFilled], 
+    [UserView].[Place] AS [Place], 
+    [UserView].[PlaceName] AS [PlaceName]
+    FROM [dbo].[UserView] AS [UserView]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -183,6 +315,14 @@
           <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -341,23 +481,80 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="UserViews" EntityType="Model.UserView" />
+          <AssociationSet Name="AspNetUserRoles1" Association="Model.AspNetUserRoles1">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="C__MigrationHistory1" EntityType="Model.C__MigrationHistory1" />
         </EntityContainer>
+        <EntityType Name="UserView">
+          <Key>
+            <PropertyRef Name="EmailConfirmed" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="Expr1" />
+          </Key>
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Expr1" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Expr2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Expr3" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Rating" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ProfileImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsEnabled" Type="Int32" />
+          <Property Name="IsTrusted" Type="Int32" />
+          <Property Name="BitcoinWallet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EtherWallet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LiteCoinWallet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="ACType" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="AboutMe" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Seeking" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="IAmSeeking" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LookingFor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Height" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ethnicity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BodyType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HairColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Occupation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Education" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RelationShip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Children" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Drinking" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Smoking" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Language" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Heading" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LifeStyle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NetWorth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AnnualIncome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsFilled" Type="Int32" />
+          <Property Name="Place" Type="Geography" />
+          <Property Name="PlaceName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="AspNetUserRoles1">
+          <End Type="Model.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityType Name="C__MigrationHistory1">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
-    <EntitySetMapping Name="C__MigrationHistory">
-      <EntityTypeMapping TypeName="IsTypeOf(Model.C__MigrationHistory)">
-        <MappingFragment StoreEntitySet="C__MigrationHistory">
-          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-          <ScalarProperty Name="Model" ColumnName="Model" />
-          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="AspNetRoles">
       <EntityTypeMapping TypeName="IsTypeOf(Model.AspNetRole)">
         <MappingFragment StoreEntitySet="AspNetRoles">
@@ -447,13 +644,71 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <AssociationSetMapping Name="AspNetUserRoles" TypeName="Model.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-      <EndProperty Name="AspNetRoles">
-        <ScalarProperty Name="Id" ColumnName="AspNetRoles_Id" />
-      </EndProperty>
-      <EndProperty Name="AspNetUsers">
-        <ScalarProperty Name="Id" ColumnName="AspNetUsers_Id" />
-      </EndProperty>
-    </AssociationSetMapping>
+      </AssociationSetMapping>
+          <EntitySetMapping Name="UserViews">
+            <EntityTypeMapping TypeName="Model.UserView">
+              <MappingFragment StoreEntitySet="UserView">
+                <ScalarProperty Name="PlaceName" ColumnName="PlaceName" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="IsFilled" ColumnName="IsFilled" />
+                <ScalarProperty Name="AnnualIncome" ColumnName="AnnualIncome" />
+                <ScalarProperty Name="NetWorth" ColumnName="NetWorth" />
+                <ScalarProperty Name="LifeStyle" ColumnName="LifeStyle" />
+                <ScalarProperty Name="Heading" ColumnName="Heading" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="Smoking" ColumnName="Smoking" />
+                <ScalarProperty Name="Drinking" ColumnName="Drinking" />
+                <ScalarProperty Name="Children" ColumnName="Children" />
+                <ScalarProperty Name="RelationShip" ColumnName="RelationShip" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+                <ScalarProperty Name="Occupation" ColumnName="Occupation" />
+                <ScalarProperty Name="HairColor" ColumnName="HairColor" />
+                <ScalarProperty Name="BodyType" ColumnName="BodyType" />
+                <ScalarProperty Name="Ethnicity" ColumnName="Ethnicity" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="LookingFor" ColumnName="LookingFor" />
+                <ScalarProperty Name="IAmSeeking" ColumnName="IAmSeeking" />
+                <ScalarProperty Name="Seeking" ColumnName="Seeking" />
+                <ScalarProperty Name="AboutMe" ColumnName="AboutMe" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="ACType" ColumnName="ACType" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="LiteCoinWallet" ColumnName="LiteCoinWallet" />
+                <ScalarProperty Name="EtherWallet" ColumnName="EtherWallet" />
+                <ScalarProperty Name="BitcoinWallet" ColumnName="BitcoinWallet" />
+                <ScalarProperty Name="IsTrusted" ColumnName="IsTrusted" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="ProfileImage" ColumnName="ProfileImage" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Expr3" ColumnName="Expr3" />
+                <ScalarProperty Name="Expr2" ColumnName="Expr2" />
+                <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles1" TypeName="Model.AspNetUserRoles1" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="C__MigrationHistory1">
+            <EntityTypeMapping TypeName="Model.C__MigrationHistory1">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
