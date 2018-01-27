@@ -7616,10 +7616,11 @@
     <Content Include="Views\Shared\Admin.cshtml" />
     <Content Include="Views\Shared\SBView.cshtml" />
     <Content Include="Views\Shared\SDView.cshtml" />
+    <Content Include="Views\Profile\SugarBaby.cshtml" />
+    <Content Include="Views\Profile\SugarDaddy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Profile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
