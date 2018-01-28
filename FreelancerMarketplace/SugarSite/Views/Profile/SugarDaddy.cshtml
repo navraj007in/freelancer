@@ -1,8 +1,761 @@
-﻿
+﻿@model Profile
+@using System.Web.Mvc;
 @{
-    ViewBag.Title = "SugarDaddy";
+    ViewBag.Title = "SugarBaby";
     Layout = "~/Views/Shared/SDView.cshtml";
 }
+@{
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    List<SelectListItem> listItemsBody = new List<SelectListItem>();
+    List<SelectListItem> listItemsEthnicity = new List<SelectListItem>();
+    List<SelectListItem> listItemsHair = new List<SelectListItem>();
+    List<SelectListItem> listItemsLifestyle = new List<SelectListItem>();
+    List<SelectListItem> listItemsNetWorth = new List<SelectListItem>();
+    List<SelectListItem> listItemsAnnualIncome = new List<SelectListItem>();
+    List<SelectListItem> listItemsEducation = new List<SelectListItem>();
+    List<SelectListItem> listItemsKids = new List<SelectListItem>();
+    List<SelectListItem> listItemsSmoking = new List<SelectListItem>();
+    List<SelectListItem> listItemsDrinking = new List<SelectListItem>();
+    List<SelectListItem> listItemsSeeking = new List<SelectListItem>();
+    List<SelectListItem> listItemsRelationship = new List<SelectListItem>();
 
-<h2>SugarDaddy Profile</h2>
+    listItemsEducation.Add(new SelectListItem
+    {
+        Text = "High School",
+        Value = "High School"
+    });
+    listItemsEducation.Add(new SelectListItem
+    {
+        Text = "Graduate",
+        Value = "Graduate"
+    });
+    listItemsEducation.Add(new SelectListItem
+    {
+        Text = "Post Doctoral/Phd",
+        Value = "Post Doctoral/Phd"
+    });
+    listItemsEducation.Add(new SelectListItem
+    {
+        Text = "Other",
+        Value = "Other"
+    });
 
+    listItemsRelationship.Add(new SelectListItem
+    {
+        Text = "Single",
+        Value = "Single"
+    });
+    listItemsRelationship.Add(new SelectListItem
+    {
+        Text = "Divorced",
+        Value = "Divorced"
+    });
+    listItemsRelationship.Add(new SelectListItem
+    {
+        Text = "Separated",
+        Value = "Separated"
+    });
+    listItemsRelationship.Add(new SelectListItem
+    {
+        Text = "Open Relationship",
+        Value = "Open Relationship"
+    });
+    listItemsRelationship.Add(new SelectListItem
+    {
+        Text = "Married but looking",
+        Value = "Married but looking"
+    });
+
+    listItemsKids.Add(new SelectListItem
+    {
+        Text = "0",
+        Value = "0"
+    });
+    listItemsKids.Add(new SelectListItem
+    {
+        Text = "1",
+        Value = "1"
+    });
+    listItemsKids.Add(new SelectListItem
+    {
+        Text = "2",
+        Value = "2"
+    });
+    listItemsKids.Add(new SelectListItem
+    {
+        Text = "3",
+        Value = "3"
+    });
+    listItemsKids.Add(new SelectListItem
+    {
+        Text = "4",
+        Value = "4"
+    });
+    listItemsKids.Add(new SelectListItem
+    {
+        Text = "I would rather not say",
+        Value = "I would rather not say"
+    });
+
+    listItemsSmoking.Add(new SelectListItem
+    {
+        Text = "No Smoking",
+        Value = "No Smoking"
+    });
+    listItemsSmoking.Add(new SelectListItem
+    {
+        Text = "Light Smoker",
+        Value = "Light Smoker"
+    });
+    listItemsSmoking.Add(new SelectListItem
+    {
+        Text = "Heavy Smoker",
+        Value = "Heavy Smoker"
+    });
+    listItemsDrinking.Add(new SelectListItem
+    {
+        Text = "Dont Drink",
+        Value = "Dont Drink"
+    });
+    listItemsDrinking.Add(new SelectListItem
+    {
+        Text = "Social Drinker",
+        Value = "Social Drinker"
+    });
+    listItemsDrinking.Add(new SelectListItem
+    {
+        Text = "Heavy Drinker",
+        Value = "Heavy Drinker"
+    });
+
+    listItemsSeeking.Add(new SelectListItem
+    {
+        Text = "Casual",
+        Value = "Casual"
+    });
+    listItemsSeeking.Add(new SelectListItem
+    {
+        Text = "No Strings Attached",
+        Value = "No Strings Attached"
+    });
+    listItemsSeeking.Add(new SelectListItem
+    {
+        Text = "Friends With benefits",
+        Value = "Friends With Benefits"
+    });
+    listItemsSeeking.Add(new SelectListItem
+    {
+        Text = "Platonic",
+        Value = "Platonic"
+    });
+    listItemsSeeking.Add(new SelectListItem
+    {
+        Text = "Mentorship",
+        Value = "Mentorship"
+    });
+    listItemsSeeking.Add(new SelectListItem
+    {
+        Text = "Investor",
+        Value = "Investor"
+    });
+
+    listItemsSeeking.Add(new SelectListItem
+    {
+        Text = "Dates only",
+        Value = "Dates Only"
+    });
+    listItemsSeeking.Add(new SelectListItem
+    {
+        Text = "Online Only",
+        Value = "Online Only"
+    });
+    listItemsSeeking.Add(new SelectListItem
+    {
+        Text = "Travel Mate",
+        Value = "Travel Mate"
+    });
+
+    listItemsRelationship.Add(new SelectListItem
+    {
+        Text = "Other",
+        Value = "Other"
+    });
+
+    listItemsLifestyle.Add(new SelectListItem
+    {
+        Text = "Negotiable",
+        Value = "Negotiable"
+    });
+    listItemsLifestyle.Add(new SelectListItem
+    {
+        Text = "Minimal",
+        Value = "Minimal"
+    });
+    listItemsLifestyle.Add(new SelectListItem
+    {
+        Text = "Practical",
+        Value = "Practical"
+    });
+    listItemsLifestyle.Add(new SelectListItem
+    {
+        Text = "Moderate",
+        Value = "Moderate"
+    });
+    listItemsLifestyle.Add(new SelectListItem
+    {
+        Text = "Substantial",
+        Value = "Substantial"
+    });
+    listItemsLifestyle.Add(new SelectListItem
+    {
+        Text = "High",
+        Value = "High"
+    });
+
+    listItemsNetWorth.Add(new SelectListItem
+    {
+        Text = "$100000",
+        Value = "$100000"
+    });
+
+    listItemsNetWorth.Add(new SelectListItem
+    {
+        Text = "$500000",
+        Value = "$500000"
+    });
+    listItemsNetWorth.Add(new SelectListItem
+    {
+        Text = "$1 Million",
+        Value = "$1 Million"
+    });
+    listItemsNetWorth.Add(new SelectListItem
+    {
+        Text = "$5 Million",
+        Value = "$5 Million"
+    });
+    listItemsNetWorth.Add(new SelectListItem
+    {
+        Text = "$10 Million",
+        Value = "$10 Million"
+    });
+
+
+    listItemsNetWorth.Add(new SelectListItem
+    {
+        Text = "$100 Million",
+        Value = "$100 Million"
+    });
+    listItemsNetWorth.Add(new SelectListItem
+    {
+        Text = "$Billion and More",
+        Value = "$Billion and More"
+    });
+
+    listItemsAnnualIncome.Add(new SelectListItem
+    {
+        Text = "$50000",
+        Value = "$50000"
+    });
+    listItemsAnnualIncome.Add(new SelectListItem
+    {
+        Text = "$100000",
+        Value = "$100000"
+    });
+
+    listItemsAnnualIncome.Add(new SelectListItem
+    {
+        Text = "$500000",
+        Value = "$500000"
+    });
+    listItemsAnnualIncome.Add(new SelectListItem
+    {
+        Text = "$1 Million",
+        Value = "$1 Million"
+    });
+    listItemsAnnualIncome.Add(new SelectListItem
+    {
+        Text = "$5 Million",
+        Value = "$5 Million"
+    });
+    listItemsAnnualIncome.Add(new SelectListItem
+    {
+        Text = "$10 Million",
+        Value = "$10 Million"
+    });
+
+
+    listItemsAnnualIncome.Add(new SelectListItem
+    {
+        Text = "$100 Million",
+        Value = "$100 Million"
+    });
+    listItemsAnnualIncome.Add(new SelectListItem
+    {
+        Text = "$Billion and More",
+        Value = "$Billion and More"
+    });
+
+    listItemsBody.Add(new SelectListItem
+    {
+        Text = "Slim",
+        Value = "Slim"
+    });
+
+    listItemsBody.Add(new SelectListItem
+    {
+        Text = "Athletic",
+        Value = "Athletic"
+    });
+    listItemsBody.Add(new SelectListItem
+    {
+        Text = "Average",
+        Value = "Average"
+    });
+    listItemsBody.Add(new SelectListItem
+    {
+        Text = "Curvy",
+        Value = "Curvy"
+    });
+    listItemsBody.Add(new SelectListItem
+    {
+        Text = "A few extra pounds",
+        Value = "A few extra pounds"
+    });
+
+    listItemsEthnicity.Add(new SelectListItem
+    {
+        Text = "Asian",
+        Value = "Asian"
+    });
+    listItemsEthnicity.Add(new SelectListItem
+    {
+        Text = "African",
+        Value = "African"
+    });
+    listItemsEthnicity.Add(new SelectListItem
+    {
+        Text = "Latin/Hispanic",
+        Value = "Latin/Hispanic"
+    });
+    listItemsEthnicity.Add(new SelectListItem
+    {
+        Text = "White/Caucasian",
+        Value = "White/Caucasian"
+    });
+    listItemsEthnicity.Add(new SelectListItem
+    {
+        Text = "Middle Eastern",
+        Value = "Middle Eastern"
+    });
+    listItemsEthnicity.Add(new SelectListItem
+    {
+        Text = "Mixed",
+        Value = "Mixed"
+    });
+
+    listItemsHair.Add(new SelectListItem
+    {
+        Text = "Auburn",
+        Value = "Auburn"
+    });
+    listItemsHair.Add(new SelectListItem
+    {
+        Text = "Blonde",
+        Value = "Blonde"
+    });
+    listItemsHair.Add(new SelectListItem
+    {
+        Text = "Black",
+        Value = "Black"
+    });
+    listItemsHair.Add(new SelectListItem
+    {
+        Text = "Grey",
+        Value = "Grey"
+    });
+    listItemsHair.Add(new SelectListItem
+    {
+        Text = "White",
+        Value = "White"
+    });
+    listItemsHair.Add(new SelectListItem
+    {
+        Text = "Other",
+        Value = "Other"
+    });
+
+
+    for (int i = 150; i < 180; i++)
+    {
+        listItems.Add(new SelectListItem
+        {
+            Text = i.ToString(),
+            Value = i.ToString()
+        });
+
+    }
+}
+
+
+@using (Html.BeginForm("SugarDaddy", "Profile", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <section class="content-header">
+        <h1>
+            Sugar Daddy Profile
+        </h1>
+        <ol class="breadcrumb">
+            <button type="submit" class="btn btn-primary">
+                Save
+            </button>
+        </ol>
+    </section>
+    <br />
+<div class="row">
+
+    <!-- left column -->
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Basic Details</h3>
+            </div>
+            <div class="box-body">
+                <!-- /.box-header -->
+                <!-- form start -->
+
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">User Name(Alias)</label>
+                        @Html.TextBoxFor(m => m.Alias, new { @class = "form-control", @placeholder = "Enter Alias(Dont reveal your real name)" })
+                       
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Profile Heading</label>
+                        @Html.TextBoxFor(m => m.Heading, new { @class = "form-control", @placeholder = "Profile Heading" })
+                    </div>
+                    <div class="form-group">
+                        <label>Date Of Birth:</label>
+
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.TextBoxFor(m => m.DOB, new { @class = "form-control", @placeholder = "Date Of Birth",@id="datepicker" })
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <div class="form-group">
+                        <label>Seeking</label>
+                        <select class="form-control select2" style="width: 100%;">
+                            <option selected="selected">Men</option>
+                            <option>Women</option>
+                            <option>Both</option>
+                        </select>
+                    </div>
+
+
+                </div>
+                <!-- /.box-body -->
+
+             
+
+            </div>
+            <!-- /.box -->
+            <!-- Form Element sizes -->
+            
+                <!-- /.box -->
+            </div>
+
+        
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h3 class="box-title">Physical Facts</h3>
+            </div>
+            <div class="box-body">
+                <!-- /.box-header -->
+                <!-- form start -->
+
+                <div class="box-body">
+                    <div class="form-group">
+                        <label>Height</label>
+                        @Html.DropDownListFor(m=>m.Heading, listItems, new { @class = "form-control select2", @placeholder = "Profile Heading", @style = "width: 100%;" })
+                    </div>
+                    <div class="form-group">
+                        <label>Body Type</label>
+                        @Html.DropDownListFor(m => m.BodyType, listItemsBody, new { @class = "form-control select2", @placeholder = "Profile Heading", @style = "width: 100%;" })
+                    </div>
+                    <div class="form-group">
+                        <label>Ethnicity</label>
+                        @Html.DropDownListFor(m => m.Ethnicity, listItemsEthnicity, new { @class = "form-control select2", @placeholder = "Profile Heading", @style = "width: 100%;" })
+                    </div>
+                    <div class="form-group">
+                        <label>Hair Color</label>
+                        @Html.DropDownListFor(m => m.HairColor, listItemsHair, new { @class = "form-control select2", @placeholder = "Profile Heading", @style = "width: 100%;" })
+                    </div>
+
+
+
+
+                </div>
+                <!-- /.box-body -->
+
+              
+
+            </div>
+            <!-- /.box -->
+            <!-- Form Element sizes -->
+            
+            <!-- /.box -->
+        </div>
+        
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title">My Location</h3>
+                </div>
+                <div class="box-body">
+
+                    <div class="input-group input-group-sm">
+                        @Html.TextBoxFor(m => m.PlaceName, new { @class = "form-control", @placeholder = "City" })
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-info btn-flat">Your City</button>
+                        </span>
+                    </div>
+
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+            <!-- Input addon -->
+            <!-- /.box -->
+
+        </div>
+        <!--/.col (left) -->
+        <!-- right column -->
+    <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h3 class="box-title">Financials</h3>
+            </div>
+            <div class="box-body">
+                <!-- /.box-header -->
+                <!-- form start -->
+
+                <div class="box-body">
+                    <div class="form-group">
+                        <label>LifeStyle</label>
+                        @Html.DropDownListFor(m => m.LifeStyle, listItemsLifestyle, new { @class = "form-control select2", @placeholder = "Profile Heading", @style = "width: 100%;" })
+                    </div>
+                    <div class="form-group">
+                        <label>Net Worth</label>
+                        @Html.DropDownListFor(m => m.NetWorth, listItemsNetWorth, new { @class = "form-control select2", @placeholder = "Profile Heading", @style = "width: 100%;" })
+                    </div>
+                    <div class="form-group">
+                        <label>Annual Income</label>
+                        @Html.DropDownListFor(m => m.AnnualIncome, listItemsAnnualIncome, new { @class = "form-control select2", @placeholder = "Profile Heading", @style = "width: 100%;" })
+                    </div>
+
+
+                </div>
+                <!-- /.box-body -->
+
+
+            </div>
+            <!-- /.box -->
+            <!-- Form Element sizes -->
+            <!-- /.box -->
+        </div>
+
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Particulars</h3>
+            </div>
+            <div class="box-body">
+                <!-- /.box-header -->
+                <!-- form start -->
+
+                <div class="box-body">
+           
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Occupation</label>
+                        @Html.TextBoxFor(m => m.Occupation, new { @class = "form-control", @placeholder = "Occupation" })
+                    </div>
+                    <div class="form-group">
+                        <label>Education</label>
+                        @Html.DropDownListFor(m => m.Education, listItemsEducation, new { @class = "form-control select2", @placeholder = "Profile Heading", @style = "width: 100%;" })
+                    </div>
+                    <div class="form-group">
+                        <label>Relationship</label>
+                        @Html.DropDownListFor(m => m.RelationShip, listItemsRelationship, new { @class = "form-control select2", @placeholder = "Profile Heading", @style = "width: 100%;" })
+                    </div>
+                    <div class="form-group">
+                        <label>Kids</label>
+                        @Html.DropDownListFor(m => m.Children, listItemsKids, new { @class = "form-control select2", @placeholder = "Profile Heading", @style = "width: 100%;" })
+                    </div>
+                    <div class="form-group">
+                        <label>Smoking</label>
+                        @Html.DropDownListFor(m => m.Smoking, listItemsSmoking, new { @class = "form-control select2", @placeholder = "Profile Heading", @style = "width: 100%;" })
+                    </div>
+                    <div class="form-group">
+                        <label>Drinking</label>
+                        @Html.DropDownListFor(m => m.Drinking, listItemsDrinking, new { @class = "form-control select2", @placeholder = "Profile Heading", @style = "width: 100%;" })
+                    </div>
+
+                </div>
+                <!-- /.box-body -->
+
+
+            </div>
+            <!-- /.box -->
+            <!-- Form Element sizes -->
+            <!-- /.box -->
+        </div>
+        
+
+        <div class="box box-warning">
+            <div class="box-header with-border">
+                <h3 class="box-title">Details</h3>
+            </div>
+            <div class="box-body">
+                <!-- /.box-header -->
+                <!-- form start -->
+
+                <div class="box-body">
+
+                    <div class="form-group">
+                        <label>About Me</label>
+                        @Html.TextAreaFor(m => m.AboutMe, new { @class = "form-control", @placeholder = "Describe Yourself",@rows=5 })
+                    </div>
+                    <div class="form-group">
+                        <label>Seeking</label>
+                        @Html.DropDownListFor(m => m.IAmSeeking, listItemsSeeking, new { @class = "form-control select2",@multiple="multiple", @placeholder = "Profile Heading", @style = "width: 100%;" })
+                    </div>
+                    <div class="form-group">
+                        <label>What I am looking for </label>
+                        @Html.TextAreaFor(m => m.LookingFor, new { @class = "form-control", @placeholder = "Sugarbaby Description",@rows=5 })
+                    </div>
+
+                </div>
+                <!-- /.box-body -->
+
+
+            </div>
+            <!-- /.box -->
+            <!-- Form Element sizes -->
+            <!-- /.box -->
+        </div>
+        <!-- /.box -->
+        <!-- /.box -->
+        <!-- general form elements disabled -->
+        
+        <!-- /.box -->
+        
+        <!-- /.box -->
+        <!-- Input addon -->
+        <!-- /.box -->
+
+    </div>
+        
+        <!--/.col (right) -->
+    </div>
+    @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @placeholder = "Enter Alias(Dont reveal your real name)" })
+    @Html.TextBoxFor(m => m.userId, new { @class = "form-control", @placeholder = "Enter Alias(Dont reveal your real name)" })
+}
+@*<!-- jQuery 3 -->
+    <script src="~/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="~/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Select2 -->
+    <script src="~/bower_components/select2/dist/js/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="~/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="~/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="~/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    <!-- date-range-picker -->
+    <script src="~/bower_components/moment/min/moment.min.js"></script>
+    <script src="~/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap datepicker -->
+    <script src="~/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- bootstrap color picker -->
+    <script src="~/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+    <!-- bootstrap time picker -->
+    <script src="~/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="~/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- iCheck 1.0.1 -->
+    <script src="~/plugins/iCheck/icheck.min.js"></script>
+    <!-- FastClick -->
+    <script src="~/bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/dist/js/demo.js"></script>
+    <!-- Page script -->
+    <script>
+      $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+
+        //Datemask dd/mm/yyyy
+        $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+        //Datemask2 mm/dd/yyyy
+        $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+        //Money Euro
+        $('[data-mask]').inputmask()
+
+        //Date range picker
+        $('#reservation').daterangepicker()
+        //Date range picker with time picker
+        $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
+        //Date range as a button
+        $('#daterange-btn').daterangepicker(
+          {
+            ranges   : {
+              'Today'       : [moment(), moment()],
+              'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+              'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+              'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+              'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+              'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+            startDate: moment().subtract(29, 'days'),
+            endDate  : moment()
+          },
+          function (start, end) {
+            $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+          }
+        )
+
+        //Date picker
+        $('#datepicker').datepicker({
+          autoclose: true
+        })
+
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+          checkboxClass: 'icheckbox_minimal-blue',
+          radioClass   : 'iradio_minimal-blue'
+        })
+        //Red color scheme for iCheck
+        $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+          checkboxClass: 'icheckbox_minimal-red',
+          radioClass   : 'iradio_minimal-red'
+        })
+        //Flat red color scheme for iCheck
+        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+          checkboxClass: 'icheckbox_flat-green',
+          radioClass   : 'iradio_flat-green'
+        })
+
+        //Colorpicker
+        $('.my-colorpicker1').colorpicker()
+        //color picker with addon
+        $('.my-colorpicker2').colorpicker()
+
+        //Timepicker
+        $('.timepicker').timepicker({
+          showInputs: false
+        })
+      })
+    </script>*@

@@ -7618,6 +7618,7 @@
     <Content Include="Views\Shared\SDView.cshtml" />
     <Content Include="Views\Profile\SugarBaby.cshtml" />
     <Content Include="Views\Profile\SugarDaddy.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
