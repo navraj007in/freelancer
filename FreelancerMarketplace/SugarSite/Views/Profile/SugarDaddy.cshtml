@@ -4,6 +4,29 @@
     ViewBag.Title = "SugarBaby";
     Layout = "~/Views/Shared/SDView.cshtml";
 }
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&key=AIzaSyAPhqIRwZ0tDpOjLZCBeCvzHIFEqDsOUfs"></script>
+
+<script type="text/javascript">
+    function initialize() {
+        var input = document.getElementById('PlaceName');
+        new google.maps.places.Autocomplete(input);
+    }
+    google.maps.event.addDomListener(window, 'load', function () {
+        var places = new google.maps.places.Autocomplete(document.getElementById('PlaceName'));
+        google.maps.event.addListener(places, 'place_changed', function () {
+            var place = places.getPlace();
+            var address = place.formatted_address;
+            var latitude = place.geometry.location.lat();
+            var longitude = place.geometry.location.lng();
+            var mesg = "Address: " + address;
+            mesg += "\nLatitude: " + latitude;
+            mesg += "\nLongitude: " + longitude;
+            alert(mesg);
+        });
+    });
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
 @{
     List<SelectListItem> listItems = new List<SelectListItem>();
     List<SelectListItem> listItemsBody = new List<SelectListItem>();
@@ -18,6 +41,25 @@
     List<SelectListItem> listItemsDrinking = new List<SelectListItem>();
     List<SelectListItem> listItemsSeeking = new List<SelectListItem>();
     List<SelectListItem> listItemsRelationship = new List<SelectListItem>();
+    List<SelectListItem> listItemsSeekingMF = new List<SelectListItem>();
+
+    listItemsSeekingMF.Add(new SelectListItem
+    {
+        Text = "Male",
+        Value = "Male"
+    });
+    listItemsSeekingMF.Add(new SelectListItem
+    {
+        Text = "Female",
+        Value = "Female"
+    });
+    listItemsSeekingMF.Add(new SelectListItem
+    {
+        Text = "Both",
+        Value = "Both"
+    });
+
+
 
     listItemsEducation.Add(new SelectListItem
     {
@@ -440,17 +482,14 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                             </div>
-                            @Html.TextBoxFor(m => m.DOB, new { @class = "form-control", @placeholder = "Date Of Birth",@id="datepicker" })
+                            @Html.TextBoxFor(m => m.DOB, new { @class = "form-control", @placeholder = "Date Of Birth"})
                         </div>
                         <!-- /.input group -->
                     </div>
                     <div class="form-group">
                         <label>Seeking</label>
-                        <select class="form-control select2" style="width: 100%;">
-                            <option selected="selected">Men</option>
-                            <option>Women</option>
-                            <option>Both</option>
-                        </select>
+                        @Html.DropDownListFor(m => m.Seeking, listItemsSeekingMF, new { @class = "form-control select2", @placeholder = "Profile Heading", @style = "width: 100%;" })
+                       
                     </div>
 
 
@@ -478,7 +517,7 @@
                 <div class="box-body">
                     <div class="form-group">
                         <label>Height</label>
-                        @Html.DropDownListFor(m=>m.Heading, listItems, new { @class = "form-control select2", @placeholder = "Profile Heading", @style = "width: 100%;" })
+                        @Html.DropDownListFor(m=>m.Height, listItems, new { @class = "form-control select2", @placeholder = "Profile Heading", @style = "width: 100%;" })
                     </div>
                     <div class="form-group">
                         <label>Body Type</label>
@@ -661,7 +700,30 @@
     </div>
     @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @placeholder = "Enter Alias(Dont reveal your real name)" })
     @Html.TextBoxFor(m => m.userId, new { @class = "form-control", @placeholder = "Enter Alias(Dont reveal your real name)" })
+    @Html.TextBoxFor(m => m.ACType, new { @class = "form-control", @placeholder = "Enter Alias(Dont reveal your real name)" })
+    @Html.TextBoxFor(m => m.DateCreated, new { @class = "form-control", @placeholder = "Enter Alias(Dont reveal your real name)" })
+
+
 }
+<script src="~/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="~/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Select2 -->
+<script src="~/bower_components/select2/dist/js/select2.full.min.js"></script>
+<!-- InputMask -->
+<script src="~/plugins/input-mask/jquery.inputmask.js"></script>
+<script src="~/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="~/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+<script src="~/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="~/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+<script src="~/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="~/dist/js/demo.js"></script>
+<script type="text/javascript">
+    $('#DOB').datepicker({
+        autoclose: true
+    })
+</script>
 @*<!-- jQuery 3 -->
     <script src="~/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
